@@ -1,8 +1,10 @@
 import React from 'react'
-import { createButtomTabNavigator } from '@react-navigation/bottom-tabs'
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 import AudioList from '../screens/AudioList'
 import Player from '../screens/Player'
 import PlayList from '../screens/PlayList'
+
+const Tab = createBottomTabNavigator()
 
 
 const AppNavigator = () => {
