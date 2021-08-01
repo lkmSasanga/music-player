@@ -3,6 +3,7 @@ import { Text, StyleSheet, View, ScrollView, Dimensions } from "react-native";
 import { AudioContext } from "../context/AudioProvider";
 import { RecyclerListView, LayoutProvider } from "recyclerlistview";
 import AudioListItem from "../components/AudioListItem";
+import Screen from "../components/Screen";
 
 export default class AudioList extends Component {
   static contextType = AudioContext;
@@ -30,13 +31,13 @@ export default class AudioList extends Component {
       <AudioContext.Consumer>
         {({ dataProvider }) => {
           return (
-            <View style={{ flex: 1 }}>
+            <Screen>
               <RecyclerListView
                 dataProvider={dataProvider}
                 layoutProvider={this.layoutProvider}
                 rowRenderer={this.rowRenderer}
               />
-            </View>
+            </Screen>
           );
         }}
       </AudioContext.Consumer>
