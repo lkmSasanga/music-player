@@ -6,6 +6,7 @@ import AudioListItem from "../components/AudioListItem";
 import Screen from "../components/Screen";
 import OptionModal from "../components/OptionModal";
 import { Audio } from "expo-av";
+// import Toast from "react-native-simple-toast";
 
 export default class AudioList extends Component {
   static contextType = AudioContext;
@@ -16,6 +17,7 @@ export default class AudioList extends Component {
       optionModalVisible: false,
       playbackObj: null,
       soundObj: null,
+      currentAudio: {},
     };
 
     this.currentItem = {};
@@ -38,6 +40,10 @@ export default class AudioList extends Component {
 
   handleAudioPress = async audio => {
     // playing audio for the first time
+    // console.log(audio);
+
+    // Toast.show(soundObj);
+
     if (this.state.soundObj === null) {
       const playbackObj = new Audio.Sound();
       const status = await playbackObj.loadAsync(
@@ -47,6 +53,7 @@ export default class AudioList extends Component {
 
       return this.setState({
         ...this.state,
+        currentAudio: audio,
         playbackObj: playbackObj,
         soundObj: status,
       });
@@ -54,7 +61,31 @@ export default class AudioList extends Component {
 
     // pause audio
     if (this.state.soundObj.isLoaded && this.state.soundObj.isPlaying) {
-      this.state.playbackObj.setStatusAsync({ shouldPlay: false });
+      const status = this.state.playbackObj.setStatusAsync({
+        shouldPlay: false,
+      });
+      return this.setState({
+        ...this.state,
+        soundObj: status,
+      });
+    }
+
+    console.log("current audio id", this.state.currentAudio.id);
+    console.log("audio id", audio.id);
+
+    // resume audio
+    if (
+      this.state.soundObj.isLoaded &&
+      !this.state.soundObj.isPlaying &&
+      this.state.currentAudio.id === audio.id
+    ) {
+      const status = await this.state.playbackObj.playAsync();
+      console.log(status);
+
+      return this.setState({
+        ...this.state,
+        soundObj: status,
+      });
     }
   };
 
