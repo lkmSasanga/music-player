@@ -1,12 +1,19 @@
 import React from "react";
-import { StyleSheet, Modal, View, StatusBar, Text } from "react-native";
+import {
+  StyleSheet,
+  Modal,
+  View,
+  StatusBar,
+  Text,
+  TouchableWithoutFeedback,
+} from "react-native";
 import color from "../misc/color";
 
-const OptionModal = ({ visible }) => {
+const OptionModal = ({ visible, onClose }) => {
   return (
     <>
       <StatusBar hidden />
-      <Modal transparent={true} visible={visible}>
+      <Modal animationType="slide" transparent={true} visible={visible}>
         <View style={styles.modal}>
           <Text style={styles.title} numberOfLines={2}>
             Dynamic Title of our audio Dynamic Title of our audioDynamic Title
@@ -17,7 +24,9 @@ const OptionModal = ({ visible }) => {
             <Text style={styles.option}>Add to PlayList</Text>
           </View>
         </View>
-        <View style={styles.modalBG} />
+        <TouchableWithoutFeedback onPress={onClose}>
+          <View style={styles.modalBG} />
+        </TouchableWithoutFeedback>
       </Modal>
     </>
   );
