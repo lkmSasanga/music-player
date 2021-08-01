@@ -1,5 +1,11 @@
 import React from "react";
-import { Text, StyleSheet, View, Dimensions } from "react-native";
+import {
+  Text,
+  StyleSheet,
+  View,
+  Dimensions,
+  TouchableWithoutFeedback,
+} from "react-native";
 import { Entypo } from "@expo/vector-icons";
 import color from "../misc/color";
 
@@ -30,21 +36,26 @@ const convertTime = minutes => {
   }
 };
 
-const AudioListItem = ({ title, duration, onOptionPress }) => {
+const AudioListItem = ({ title, duration, onOptionPress, onAudioPress }) => {
   return (
     <>
       <View style={styles.container}>
-        <View style={styles.leftContainer}>
-          <View style={styles.thumbnail}>
-            <Text style={styles.thumbnailText}>{getThumbnailText(title)}</Text>
+        <TouchableWithoutFeedback onPress={onAudioPress}>
+          <View style={styles.leftContainer}>
+            <View style={styles.thumbnail}>
+              <Text style={styles.thumbnailText}>
+                {getThumbnailText(title)}
+              </Text>
+            </View>
+            <View style={styles.titleContainer}>
+              <Text numberOfLines={1} style={styles.title}>
+                {title}
+              </Text>
+              <Text style={styles.timeText}>{convertTime(duration)}</Text>
+            </View>
           </View>
-          <View style={styles.titleContainer}>
-            <Text numberOfLines={1} style={styles.title}>
-              {title}
-            </Text>
-            <Text style={styles.timeText}>{convertTime(duration)}</Text>
-          </View>
-        </View>
+        </TouchableWithoutFeedback>
+
         <View style={styles.rightContainer}>
           <Entypo
             onPress={onOptionPress}
