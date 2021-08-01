@@ -21,7 +21,7 @@ const AudioListItem = () => {
         <View style={styles.rightContainer}>
           <Entypo
             name="dots-three-vertical"
-            size={24}
+            size={20}
             color={color.FONT_MEDIUM}
           />
         </View>
