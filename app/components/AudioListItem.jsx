@@ -3,19 +3,23 @@ import { Text, StyleSheet, View, Dimensions } from "react-native";
 import { Entypo } from "@expo/vector-icons";
 import color from "../misc/color";
 
-const AudioListItem = () => {
+const getThumbnailText = filename => {
+  return filename[0];
+};
+
+const AudioListItem = ({ title, duration }) => {
   return (
     <>
       <View style={styles.container}>
         <View style={styles.leftContainer}>
           <View style={styles.thumbnail}>
-            <Text style={styles.thumbnailText}>A</Text>
+            <Text style={styles.thumbnailText}>{getThumbnailText(title)}</Text>
           </View>
           <View style={styles.titleContainer}>
             <Text numberOfLines={1} style={styles.title}>
-              This will be some long text, some more text as well!
+              {title}
             </Text>
-            <Text style={styles.timeText}>03:59</Text>
+            <Text style={styles.timeText}>{duration}</Text>
           </View>
         </View>
         <View style={styles.rightContainer}>
