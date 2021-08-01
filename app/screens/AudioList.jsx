@@ -8,7 +8,16 @@ export default class AudioList extends Component {
     return (
       <ScrollView>
         {this.context.audioFiles.map(item => (
-          <Text key={item.id}>{item.filename}</Text>
+          <Text
+            style={{
+              padding: 10,
+              borderBottomColor: "blue",
+              borderBottomWidth: 2,
+            }}
+            key={item.id}
+          >
+            {item.filename}
+          </Text>
         ))}
       </ScrollView>
     );

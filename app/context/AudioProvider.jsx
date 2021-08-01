@@ -8,6 +8,7 @@ export default class AudioProvider extends Component {
     super(props);
     this.state = {
       audioFiles: [],
+      permissionError: false,
     };
   }
 
@@ -50,6 +51,10 @@ export default class AudioProvider extends Component {
       this.getAudioFiles();
     }
 
+    if (!permission.canAskAgain && !permission.granted) {
+      this.setState({ ...this.state, permissionError: true });
+    }
+
     if (!permission.granted && permission.canAskAgain) {
       const { status, canAskAgain } =
         await MediaLibrary.requestPermissionsAsync();
@@ -65,6 +70,7 @@ export default class AudioProvider extends Component {
 
       if (status === "denied" && !canAskAgain) {
         // we want to display some error to user
+        this.setState({ ...this.state, permissionError: true });
       }
     }
   };
@@ -74,6 +80,16 @@ export default class AudioProvider extends Component {
   }
 
   render() {
+    if (this.state.permissionError)
+      return (
+        <View
+          style={{ flex: 1, justifyContent: "center", alignItems: "center" }}
+        >
+          <Text style={{ fontSize: 25, textAlign: "center", color: "red" }}>
+            It looks like you haven't acccept the permission.
+          </Text>
+        </View>
+      );
     return (
       <AudioContext.Provider value={{ audioFiles: this.state.audioFiles }}>
         {this.props.children}
