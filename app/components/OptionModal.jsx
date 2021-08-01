@@ -9,15 +9,15 @@ import {
 } from "react-native";
 import color from "../misc/color";
 
-const OptionModal = ({ visible, onClose }) => {
+const OptionModal = ({ visible, currentItem, onClose }) => {
+  const { filename } = currentItem;
   return (
     <>
       <StatusBar hidden />
       <Modal animationType="slide" transparent={true} visible={visible}>
         <View style={styles.modal}>
           <Text style={styles.title} numberOfLines={2}>
-            Dynamic Title of our audio Dynamic Title of our audioDynamic Title
-            of our audioDynamic Title of our audioDynamic Title of our audio
+            {filename}
           </Text>
           <View style={styles.optionContainer}>
             <Text style={styles.option}>Play</Text>

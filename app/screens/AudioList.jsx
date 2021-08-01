@@ -14,6 +14,8 @@ export default class AudioList extends Component {
     this.state = {
       optionModalVisible: false,
     };
+
+    this.currentItem = {};
   }
 
   layoutProvider = new LayoutProvider(
@@ -37,6 +39,7 @@ export default class AudioList extends Component {
         title={item.filename}
         duration={item.duration}
         onOptionPress={() => {
+          this.currentItem = item;
           this.setState({ ...this.state, optionModalVisible: true });
         }}
       />
@@ -54,6 +57,7 @@ export default class AudioList extends Component {
                 rowRenderer={this.rowRenderer}
               />
               <OptionModal
+                currentItem={this.currentItem}
                 onClose={() => {
                   this.setState({ ...this.state, optionModalVisible: false });
                 }}
