@@ -4,6 +4,7 @@ import { AudioContext } from "../context/AudioProvider";
 import { RecyclerListView, LayoutProvider } from "recyclerlistview";
 import AudioListItem from "../components/AudioListItem";
 import Screen from "../components/Screen";
+import OptionModal from "../components/OptionModal";
 
 export default class AudioList extends Component {
   static contextType = AudioContext;
@@ -24,7 +25,15 @@ export default class AudioList extends Component {
   );
 
   rowRenderer = (type, item) => {
-    return <AudioListItem title={item.filename} duration={item.duration} />;
+    return (
+      <AudioListItem
+        title={item.filename}
+        duration={item.duration}
+        onOptionPress={() => {
+          console.log("opening option");
+        }}
+      />
+    );
   };
   render() {
     return (
@@ -37,6 +46,7 @@ export default class AudioList extends Component {
                 layoutProvider={this.layoutProvider}
                 rowRenderer={this.rowRenderer}
               />
+              <OptionModal visible={true} />
             </Screen>
           );
         }}
